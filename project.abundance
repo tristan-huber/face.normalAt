@@ -1,13 +1,106 @@
 {
-    "atomType": "Molecule",
-    "x": 0,
-    "y": 0,
-    "uniqueID": "id-86",
-    "name": "face.normalAt",
-    "topLevel": true,
-    "allAtoms": [],
-    "allConnectors": [],
-    "unitsKey": "Unitless",
-    "fileTypeVersion": 1,
-    "filetypeVersion": 1
+  "atomType": "Molecule",
+  "x": 0,
+  "y": 0,
+  "uniqueID": "id-86",
+  "name": "face.normalAt",
+  "ioValues": [
+    {
+      "name": "face",
+      "ioValue": "__GEOMETRY_INPUT__"
+    },
+    {
+      "name": "u",
+      "ioValue": 10
+    },
+    {
+      "name": "v",
+      "ioValue": 10
+    }
+  ],
+  "topLevel": true,
+  "allAtoms": [
+    {
+      "atomType": "Output",
+      "x": 0.98,
+      "y": 0.5,
+      "uniqueID": "id-87",
+      "ioValues": [
+        {
+          "name": "number or geometry",
+          "ioValue": "__GEOMETRY_INPUT__"
+        }
+      ]
+    },
+    {
+      "atomType": "Code",
+      "x": 0.43619791666666663,
+      "y": 0.62,
+      "uniqueID": "id-89",
+      "ioValues": [
+        {
+          "name": "face",
+          "ioValue": "__GEOMETRY_INPUT__"
+        },
+        {
+          "name": "u",
+          "ioValue": 10
+        },
+        {
+          "name": "v",
+          "ioValue": 10
+        }
+      ],
+      "interpreterVersion": 1,
+      "code": "// face.normalAt\nfunction run(face: Assembly, u: number = 0.5, v: number = 0.5) {\n  let faces = face.getSelectedFaces().filter((a) => a != undefined && a != null);\n  if (faces.length == 0) {\n    face.onLeafs((leaf) => {\n      if (leaf.geometry instanceof replicad.Face) {\n        faces.push(leaf.geometry)\n      }\n      return leaf;\n    })\n  }\n\n  if (faces.length != 1) {\n    throw new Error(\"needs exactly one face or one selected face as input. Got \" + faces.length)\n  }\n  console.log(faces)\n  return faces[0].normalAt([u, v]).normalize().toTuple()\n}",
+      "compiledCode": "\"use strict\";\n// face.normalAt\nfunction run(face, u = 0.5, v = 0.5) {\n    let faces = face.getSelectedFaces().filter((a) => a != undefined && a != null);\n    if (faces.length == 0) {\n        face.onLeafs((leaf) => {\n            if (leaf.geometry instanceof replicad.Face) {\n                faces.push(leaf.geometry);\n            }\n            return leaf;\n        });\n    }\n    if (faces.length != 1) {\n        throw new Error(\"needs exactly one face or one selected face as input. Got \" + faces.length);\n    }\n    console.log(faces);\n    return faces[0].normalAt([u, v]).normalize().toTuple();\n}\n"
+    },
+    {
+      "atomType": "Input",
+      "x": 0.0231,
+      "y": 0.3485714285714286,
+      "uniqueID": "id-101",
+      "name": "face",
+      "type": "geometry"
+    },
+    {
+      "atomType": "Input",
+      "x": 0.0231,
+      "y": 0.5142857142857143,
+      "uniqueID": "id-104",
+      "name": "u"
+    },
+    {
+      "atomType": "Input",
+      "x": 0.0231,
+      "y": 0.5982857142857143,
+      "uniqueID": "id-107",
+      "name": "v"
+    }
+  ],
+  "allConnectors": [
+    {
+      "ap2Name": "number or geometry",
+      "ap1ID": "id-89",
+      "ap2ID": "id-87"
+    },
+    {
+      "ap2Name": "face",
+      "ap1ID": "id-101",
+      "ap2ID": "id-89"
+    },
+    {
+      "ap2Name": "u",
+      "ap1ID": "id-104",
+      "ap2ID": "id-89"
+    },
+    {
+      "ap2Name": "v",
+      "ap1ID": "id-107",
+      "ap2ID": "id-89"
+    }
+  ],
+  "unitsKey": "Unitless",
+  "fileTypeVersion": 1,
+  "filetypeVersion": 1
 }
